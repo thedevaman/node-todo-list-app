@@ -9,6 +9,19 @@
 <body>
     <%- include('navbar') %>
      <hr>
-    <h1>Todo List add Page</h1>
+    
+    <div class="container">
+        <h1>Todo Add Task Page</h1>
+        <form class="todo-form" method="post" action="store">
+            <input class="input" type="text" placeholder="Enter Task Title" name="title">
+            <br>
+            <br>
+            <textarea class="input" name="description" id="">
+
+            </textarea>
+            <br><br>
+            <button class="btn">Add New Task</button>
+        </form>
+    </div>
 </body>
 </html>

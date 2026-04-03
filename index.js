@@ -21,4 +21,12 @@ app.get('/update',(req,res)=>{
     res.render("update")
 })
 
+app.post('/store',(req,res)=>{
+    res.redirect("/")
+})
+
+app.post('/edit',(req,res)=>{
+    res.redirect("/")
+})
+
 app.listen(3200)
