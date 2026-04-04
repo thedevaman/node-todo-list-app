@@ -1,4 +1,5 @@
 import express from 'express'
+import { MongoClient } from 'mongodb';
 import path from "path"
 
 
@@ -6,8 +7,19 @@ import path from "path"
 const app = express();
 const publicPath = path.resolve('public')
 app.use(express.static(publicPath))
+app.use(express.urlencoded({extended:false}))
 
 app.set("view engine",'ejs')
+
+const dbName="todo-project"
+const colledctionName = "todo_tasks"
+const url = "mongodb://localhost:27017"
+const client = new MongoClient(url)
+
+const connection = async ()=>{
+    const connect = await client.connect();
+    return await connect.db(dbName)
+}
 
 app.get('/',(req,res)=>{
     res.render("list")
@@ -21,11 +33,20 @@ app.get('/update',(req,res)=>{
     res.render("update")
 })
 
-app.post('/store',(req,res)=>{
+app.post('/store',async (req,res)=>{
+    const db = await connection ();
+    const collection = db.collection(colledctionName);
+    const result = collection.insertOne(req.body)
+    if(result)
+    {
     res.redirect("/")
+    }else{
+    res.redirect("/add")
+    }
 })
 
-app.post('/edit',(req,res)=>{
+app.post('/edit',async (req,res)=>{
+  
     res.redirect("/")
 })
 
