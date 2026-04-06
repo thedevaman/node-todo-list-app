@@ -21,8 +21,13 @@ const connection = async ()=>{
     return await connect.db(dbName)
 }
 
-app.get('/',(req,res)=>{
-    res.render("list")
+app.get('/',async(req,res)=>{
+
+    const db = await connection();
+    const collecton = db.collection(colledctionName)
+    const result = await collecton.find().toArray()
+    console.log(result)
+    res.render("list",{result})
 })
 
 app.get('/add',(req,res)=>{
