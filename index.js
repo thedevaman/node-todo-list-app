@@ -1,5 +1,5 @@
 import express from 'express'
-import { MongoClient } from 'mongodb';
+import { MongoClient, ObjectId } from 'mongodb';
 import path from "path"
 
 
@@ -47,6 +47,18 @@ app.post('/store',async (req,res)=>{
     res.redirect("/")
     }else{
     res.redirect("/add")
+    }
+})
+
+app.get('/delete/:id',async (req,res)=>{
+    const db = await connection ();
+    const collection = db.collection(colledctionName);
+    const result = collection.deleteOne({_id:new ObjectId(req.params.id)})  // mongo db need object id so we use "new ObjectId"
+    if(result)
+    {
+    res.redirect("/")
+    }else{
+    res.redirect("/some-error")
     }
 })
 
