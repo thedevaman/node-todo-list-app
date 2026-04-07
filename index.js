@@ -26,7 +26,7 @@ app.get('/',async(req,res)=>{
     const db = await connection();
     const collecton = db.collection(colledctionName)
     const result = await collecton.find().toArray()
-    console.log(result)
+    // console.log(result)
     res.render("list",{result})
 })
 
@@ -57,6 +57,19 @@ app.get('/delete/:id',async (req,res)=>{
     if(result)
     {
     res.redirect("/")
+    }else{
+    res.redirect("/some-error")
+    }
+})
+
+
+app.get('/update/:id',async (req,res)=>{
+    const db = await connection ();
+    const collection = db.collection(colledctionName);
+    const result = await collection.findOne({_id:new ObjectId(req.params.id)})  // mongo db need object id so we use "new ObjectId"
+    if(result)
+    {
+    res.render("update")
     }else{
     res.redirect("/some-error")
     }
