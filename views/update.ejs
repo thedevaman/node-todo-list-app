@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todo list update</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <%- include('navbar') %>
@@ -13,12 +13,10 @@
       <div class="container">
         <h1>Todo List update Page</h1>
         <form class="todo-form" method="post" action="edit">
-            <input class="input" type="text" placeholder="Enter Task Title" name="title">
+            <input class="input" type="text" placeholder="Enter Task Title" name="title" value="<%= result.title %>">
             <br>
             <br>
-            <textarea class="input" name="description" id="">
-
-            </textarea>
+            <textarea class="input" name="description" id=""><%= result.description %></textarea>
             <br><br>
             <button class="btn">Update Task</button>
         </form>

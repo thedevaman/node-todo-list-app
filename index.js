@@ -69,7 +69,7 @@ app.get('/update/:id',async (req,res)=>{
     const result = await collection.findOne({_id:new ObjectId(req.params.id)})  // mongo db need object id so we use "new ObjectId"
     if(result)
     {
-    res.render("update")
+    res.render("update",{result})
     }else{
     res.redirect("/some-error")
     }
