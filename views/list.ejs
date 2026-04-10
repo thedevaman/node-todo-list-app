@@ -11,7 +11,8 @@
     <hr>
     <div class="container">
         <h1>Task List</h1>
-
+<form action="/multi-delete" method="post">
+    <button class="delete-item" style="margin-bottom: 5px;">Delete selected</button>
     <ul class="task-list">
         <% for(let task=0; task<result.length; task++){ %>
             <li class="task-item">
@@ -21,12 +22,14 @@
             <div class="task-description">
               <%= result[task].description %>
             </div>
+            <input type="checkbox" name="selected_task" value="<%= result[task]._id %>" />
             <a href="/delete/<%= result[task]._id %>" class="delete-item">Delete</a>
              <a href="/update/<%= result[task]._id %>" class="update-item">Update</a>
             </li>
 
         <% } %>
     </ul>
+  </form>  
     </div>
 </body>
 </html>

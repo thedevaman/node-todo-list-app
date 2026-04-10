@@ -69,7 +69,7 @@ app.get('/update/:id',async (req,res)=>{
     const result = await collection.findOne({_id:new ObjectId(req.params.id)})  // mongo db need object id so we use "new ObjectId"
     if(result)
     {
-    res.render("update",{result})
+    res.redirect("/")
     }else{
     res.redirect("/some-error")
     }
@@ -88,6 +88,33 @@ app.post('/edit/:id',async (req,res)=>{
     }else{
     res.redirect("/some-error")
     }
+})
+
+app.post('/multi-delete',async (req,res)=>{
+    const db = await connection ();
+    const collection = db.collection(colledctionName);
+    console.log(req.body.selected_task)
+
+      let selectedData = undefined;
+
+    if(Array.isArray(req.body.selected_task))
+    {
+
+     selectedData = req.body.selected_task.map((id)=>new ObjectId(id))
+   
+    }else{
+       selectedData = [new ObjectId (req.body.selected_task)]
+    }
+
+    const result = await collection.deleteMany({_id:{$in:selectedData}})
+    // const result = await collection.updateOne(filter,updatedData)  // mongo db need object id so we use "new ObjectId"
+    if(result)
+    {
+    res.redirect("/")
+    }else{
+    res.redirect("/some-error")
+    }
+
 })
 
 app.listen(3200)
