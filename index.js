@@ -75,9 +75,19 @@ app.get('/update/:id',async (req,res)=>{
     }
 })
 
-app.post('/edit',async (req,res)=>{
-  
+
+app.post('/edit/:id',async (req,res)=>{
+    const db = await connection ();
+    const collection = db.collection(colledctionName);
+    const filter = {_id:new ObjectId(req.params.id)};
+    const updatedData = {$set:{title:req.body.title,description:req.body.description}};
+    const result = await collection.updateOne(filter,updatedData)  // mongo db need object id so we use "new ObjectId"
+    if(result)
+    {
     res.redirect("/")
+    }else{
+    res.redirect("/some-error")
+    }
 })
 
 app.listen(3200)
